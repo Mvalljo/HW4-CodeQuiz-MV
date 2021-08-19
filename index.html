@@ -10,10 +10,20 @@
 </head>
 
 <body>
-    <a href="#">View HighScore</a>
-    <section class = "quiz">
+    <header>
+        <a href="#">View HighScore</a>
+        <section>
+            <div class="timer">
+                <div class="timerText"></div>
+                <h2>Time: <span class="timerCount"> 0 </span></h2>
+            </div>
+        </section>
+    </header>
+
+
+    <section class="quiz">
         <h1>Coding Quiz Challenge</h1>
-        <p> 
+        <p>
             Try to answer the following questions within the time limit.<br>
             Keep in mind that incorrect amswers will penalize your score/time<br>
             by ten seconds.<br>
@@ -21,12 +31,7 @@
         <button>Start Quiz</button>
     </section>
 
-    <section>
-        <div class = "timer">
-            <div class="timerText"></div>
-            <h2>Timer: <span class="timerCount"> 0 </span></h2>
-        </div>
-    </section>
+
     <script src="./assets/js/script.js"></script>
 </body>
 
