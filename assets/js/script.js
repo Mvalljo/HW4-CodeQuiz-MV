@@ -28,12 +28,13 @@ var questionChoice = {
     choicesFour: ['commas', 'curly brackets', 'quotes', 'parantheses'],
     choicesFive: ['Javascript', 'terminal/bash', 'for loops', 'console.log'],
 };
+//Starts Quiz and Timer
 function startQuiz() {
     timeLeft = 75;
     countdown();
     nextQ();
 }
-
+//Shows Timer
 function countdown() {
     timer = setInterval(function () {
         timeLeft--;
@@ -45,7 +46,7 @@ function countdown() {
     }, 1000);
 }
 
-
+//Goes through questions
 var i = 0;
 var w = 0;
 function nextQ() {
@@ -130,7 +131,7 @@ function nextQ() {
 
 
 }
-
+//Checks if users choice is right or wrong
 var correctAnsMsg = document.createElement("p");
 var wrongAnsMsg = document.createElement("p");
 
@@ -160,6 +161,7 @@ function wrongChoice() {
     wrongAnsMsg.setAttribute("style", "font-style:italic; text-align:left; border-top:1px solid black;");
     choicesEl.appendChild(wrongAnsMsg);
 }
+// End of Quiz shows result
 var divEl = document.createElement("div")
 var y = document.createElement("p")
 var x = document.createElement("input");
@@ -185,36 +187,33 @@ function endQuiz() {
     submitBtn.addEventListener("click", highScore);
 
 }
-
+//Shows High Score
 function highScore() {
     document.body.innerHTML = '';
     var h2E1 = document.createElement("h2");
     h2E1.textContent = "HighScore";
     h2E1.setAttribute("style", "text-align:center; font-size:30px;")
     document.body.appendChild(h2E1);
-
     var score = {
         initials: x.value,
         userScore: timeLeft,
     };
-    var savedScore = [];
-    savedScore.push(score);
-    localStorage.setItem("savedS", JSON.stringify(savedScore));
-    var lastScore = JSON.parse(localStorage.getItem("savedS"));
 
-
-    for (let i = 0; i < lastScore.length; i++) {
+    localStorage.setItem("score", JSON.stringify(score));
+    var lastScore = JSON.parse(localStorage.getItem("score"));
+    if (lastScore !== null) {
         var scoreList = document.createElement("p");
-        scoreList.textContent = lastScore[i].initials +
-            " - " + lastScore[i].userScore
+        scoreList.textContent = lastScore.initials +
+            " - " + lastScore.userScore
         h2E1.appendChild(scoreList);
     }
-
+    // Button to go back to beggining of test
     backBtn.textContent = "Go Back"
     h2E1.appendChild(backBtn);
     backBtn.addEventListener("click", function () {
         window.location.replace("./index.html");
     });
+    //Button to clear High Score and local storage
     clearBtn.textContent = "Clear"
     h2E1.appendChild(clearBtn);
     clearBtn.addEventListener("click", function () {
@@ -222,4 +221,5 @@ function highScore() {
         scoreList.remove();
     });
 }
+//starts quiz when button is clicked
 startButton.addEventListener("click", startQuiz);
