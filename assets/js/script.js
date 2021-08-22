@@ -11,6 +11,8 @@ var choicesEl = document.createElement("div");
 var h1E1 = document.createElement("h1");
 var pEl = document.createElement("p");
 var submitBtn = document.createElement("button");
+var backBtn = document.createElement("button");
+var clearBtn = document.createElement("button");
 
 var questions = [
     'Commonly used data types DO NOT include:',
@@ -165,19 +167,19 @@ var x = document.createElement("input");
 function endQuiz() {
     quiz = '';
     choicesEl.remove();
-    h1E1.textContent = 'All Done!';
+    h1E1.textContent = "All Done!";
     clearTimeout(timer);
-    pEl.textContent = 'Your Score is ' + timeLeft;
+    pEl.textContent = "Your Score is " + timeLeft;
     h1E1.appendChild(pEl);
 
-    y.textContent = 'Enter Initials: ';
+    y.textContent = "Enter Initials: ";
     divEl.appendChild(y);
     y.setAttribute("style", "font-weight: lighter;display: inline-block;");
 
     x.setAttribute("type", "text");
     x.setAttribute("value", "");
     divEl.appendChild(x);
-    submitBtn.textContent = 'Submit';
+    submitBtn.textContent = "Submit";
     divEl.appendChild(submitBtn);
     h1E1.appendChild(divEl);
     submitBtn.addEventListener("click", highScore);
@@ -190,17 +192,34 @@ function highScore() {
     h2E1.textContent = "HighScore";
     h2E1.setAttribute("style", "text-align:center; font-size:30px;")
     document.body.appendChild(h2E1);
-    var scoreList = document.createElement("p")
+
     var score = {
         initials: x.value,
         userScore: timeLeft,
     };
-    localStorage.setItem("score", JSON.stringify(score));
-    var lastScore = JSON.parse(localStorage.getItem("score"));
-    if (lastScore !== null) {
-        scoreList.textContent ="1." + lastScore.initials +
-            " - " + lastScore.userScore
+    var savedScore = [];
+    savedScore.push(score);
+    localStorage.setItem("savedS", JSON.stringify(savedScore));
+    var lastScore = JSON.parse(localStorage.getItem("savedS"));
+
+
+    for (let i = 0; i < lastScore.length; i++) {
+        var scoreList = document.createElement("p");
+        scoreList.textContent = lastScore[i].initials +
+            " - " + lastScore[i].userScore
+        h2E1.appendChild(scoreList);
     }
-    h2E1.appendChild(scoreList);
+
+    backBtn.textContent = "Go Back"
+    h2E1.appendChild(backBtn);
+    backBtn.addEventListener("click", function () {
+        window.location.replace("./index.html");
+    });
+    clearBtn.textContent = "Clear"
+    h2E1.appendChild(clearBtn);
+    clearBtn.addEventListener("click", function () {
+        localStorage.clear();
+        scoreList.remove();
+    });
 }
 startButton.addEventListener("click", startQuiz);
